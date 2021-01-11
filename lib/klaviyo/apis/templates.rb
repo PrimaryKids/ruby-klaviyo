@@ -100,7 +100,7 @@ module Klaviyo
         :subject => subject,
         :context => kwargs
       }
-      v1_post_request(HTTP_POST, path, body)
+      v1_request(HTTP_POST, path, body)
     end
   end
 end
