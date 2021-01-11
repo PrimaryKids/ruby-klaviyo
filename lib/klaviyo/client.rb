@@ -49,6 +49,16 @@ module Klaviyo
       request(method, full_url, body)
     end
 
+    def self.v1_post_request(method, path, body = {})
+      path = "#{V1_API}/#{path}"
+      key = {
+        "api_key": "#{Klaviyo.private_api_key}"
+      }
+      data = {}
+      data[:body] = key.merge(kwargs)
+      request(method, path, data)
+    end
+
     def self.v2_request(method, path, kwargs = {})
       path = "#{V2_API}/#{path}"
       key = {

@@ -24,7 +24,7 @@ module Klaviyo
         :html => template_html
       }
 
-      v1_request(HTTP_POST, TEMPLATES, {}, body)
+      v1_post_request(HTTP_POST, TEMPLATES, body)
     end
 
     # Updates a specific email template
@@ -34,7 +34,7 @@ module Klaviyo
     # @return [JSON] The updated Email Template object with summary information.
     def self.update_template_details(template_id, kwargs = {})
       path = "#{TEMPLATES}/#{template_id}"
-      v1_request(HTTP_PUT, path, kwargs)
+      v1_post_request(HTTP_PUT, path, kwargs)
     end
 
     # Deletes a given template.
@@ -54,7 +54,7 @@ module Klaviyo
       body = {
         :name => new_template_name
       }
-      v1_request(HTTP_POST, path, body)
+      v1_post_request(HTTP_POST, path, body)
     end
 
     # Renders the specified template with the provided data and return HTML and text versions of
@@ -69,7 +69,7 @@ module Klaviyo
       body = {
         :context => kwargs
       }
-      v1_request(HTTP_POST, path, body)
+      v1_post_request(HTTP_POST, path, body)
     end
 
     # Renders the specified template with the provided data and then send the contents in an email
@@ -99,7 +99,7 @@ module Klaviyo
         :subject => subject,
         :context => kwargs
       }
-      v1_request(HTTP_POST, path, body)
+      v1_post_request(HTTP_POST, path, body)
     end
   end
 end
