@@ -24,7 +24,7 @@ module Klaviyo
         :html => template_html
       }
 
-      v1_request(HTTP_POST, TEMPLATES, body)
+      v1_request(HTTP_POST, TEMPLATES, {}, body)
     end
 
     # Updates a specific email template
