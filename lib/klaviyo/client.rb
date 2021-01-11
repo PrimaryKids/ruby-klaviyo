@@ -49,11 +49,11 @@ module Klaviyo
       request(method, full_url)
     end
 
+    # this feels like absolute garbage...
     def self.v1_post_request(method, path, kwargs = {})
-      path = "#{V1_API}/#{path}?api_key=#{Klaviyo.private_api_key}"
-      data = {}
-      data[:body] = kwargs
-      request(method, path, data)
+      check_private_api_key_exists()
+      full_url = "#{V1_API}/#{path}?api_key=#{Klaviyo.private_api_key}"
+      Faraday.new(BASE_API_URL).post(path, kwargs)
     end
 
     def self.v2_request(method, path, kwargs = {})
