@@ -49,7 +49,7 @@ module Klaviyo
       request(method, full_url, body)
     end
 
-    def self.v1_post_request(method, path, body = {})
+    def self.v1_post_request(method, path, kwargs = {})
       path = "#{V1_API}/#{path}"
       key = {
         "api_key": "#{Klaviyo.private_api_key}"
