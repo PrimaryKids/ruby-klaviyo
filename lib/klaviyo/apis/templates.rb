@@ -1,6 +1,7 @@
 module Klaviyo
   class Templates < Client
     TEMPLATES = 'email-templates'
+    TEMPLATE = 'email-template'
     CLONE = 'clone'
     RENDER = 'render'
     SEND = 'send'
@@ -33,7 +34,7 @@ module Klaviyo
     #   options include :name [String], :html [String]
     # @return [JSON] The updated Email Template object with summary information.
     def self.update_template_details(template_id, kwargs = {})
-      path = "#{TEMPLATES}/#{template_id}"
+      path = "#{TEMPLATE}/#{template_id}"
       v1_post_request(HTTP_PUT, path, kwargs)
     end
 
@@ -41,7 +42,7 @@ module Klaviyo
     # Note: This is a destructive operation and cannot be undone. Be careful when deleting objects.
     # @params template_id [String] the id of the template
     def self.delete_template(template_id)
-      path = "#{TEMPLATES}/#{template_id}"
+      path = "#{TEMPLATE}/#{template_id}"
       v1_request(HTTP_DELETE, path)
     end
 
@@ -50,7 +51,7 @@ module Klaviyo
     # @param new_template_name [String] the name of the newly created template
     # @return [JSON] The newly created Email Template object with summary information.
     def self.clone_template(template_id, new_template_name)
-      path = "#{TEMPLATES}/#{template_id}/#{CLONE}"
+      path = "#{TEMPLATE}/#{template_id}/#{CLONE}"
       body = {
         :name => new_template_name
       }
@@ -65,7 +66,7 @@ module Klaviyo
     # @return [JSON] The Email Template object with an additional data property that contains both
     #   the HTML and text versions of the rendered template.
     def self.render_template(template_id, kwargs = {})
-      path = "#{TEMPLATES}/#{template_id}/#{RENDER}"
+      path = "#{TEMPLATE}/#{template_id}/#{RENDER}"
       body = {
         :context => kwargs
       }
@@ -91,7 +92,7 @@ module Klaviyo
     # @return [JSON] The Email Template object with an additional data property that contains the
     #   status of the message. If successful, the status will be queued.
     def self.send_template(template_id, sender, recipient, subject, kwargs = {})
-      path = "#{TEMPLATES}/#{template_id}/#{RENDER}"
+      path = "#{TEMPLATE}/#{template_id}/#{SEND}"
       body = {
         :from_email => sender[:email],
         :from_name => sender[:name],
