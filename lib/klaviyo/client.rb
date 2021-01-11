@@ -53,7 +53,7 @@ module Klaviyo
     def self.v1_post_request(method, path, kwargs = {})
       check_private_api_key_exists()
       full_url = "#{V1_API}/#{path}?api_key=#{Klaviyo.private_api_key}"
-      Faraday.new(BASE_API_URL).post(path, kwargs)
+      Faraday.new(BASE_API_URL).post(full_url, kwargs)
     end
 
     def self.v2_request(method, path, kwargs = {})
