@@ -68,7 +68,7 @@ module Klaviyo
     def self.render_template(template_id, kwargs = {})
       path = "#{TEMPLATE}/#{template_id}/#{RENDER}"
       body = {
-        :context => kwargs
+        :context => kwargs.to_json || nil
       }
       v1_post_request(HTTP_POST, path, body)
     end

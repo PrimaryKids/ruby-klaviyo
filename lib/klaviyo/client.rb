@@ -49,11 +49,20 @@ module Klaviyo
       request(method, full_url)
     end
 
-    # this feels like absolute garbage...
+    # v1 POST endpoints use a different encoding for form data,
+    # so we need to handle them separately
     def self.v1_post_request(method, path, kwargs = {})
       check_private_api_key_exists()
-      full_url = "#{V1_API}/#{path}?api_key=#{Klaviyo.private_api_key}"
-      Faraday.new(BASE_API_URL).post(full_url, kwargs)
+      url = "#{BASE_API_URL}/#{V1_API}/#{path}"
+      key = {
+        "api_key": "#{Klaviyo.private_api_key}"
+      }
+      data = key.merge(kwargs)
+      res = Faraday.post(url) do |req|
+        req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        req.body = URI.encode_www_form(data)
+      end
+      res
     end
 
     def self.v2_request(method, path, kwargs = {})
